@@ -1,0 +1,298 @@
+openapi: 3.0.0
+info:
+  title: Inventory and Sales Management API
+  version: 1.0.0
+  description: API documentation for the Inventory and Sales Management System
+
+servers:
+  - url: http://localhost:5210
+
+tags:
+  - name: Customers
+    description: APIs related to customer management
+  - name: Products
+    description: APIs for product management
+  - name: Sales
+    description: APIs for managing sales transactions
+  - name: Reports
+    description: APIs for generating various reports
+
+paths:
+  /customers:
+    post:
+      tags:
+        - Customers
+      summary: Register a customer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: John Doe
+                phone:
+                  type: string
+                  example: 1234567890
+                email:
+                  type: string
+                  example: john.doe@example.com
+              required:
+                - name
+                - phone
+                - email
+      responses:
+        '201':
+          description: Customer registered successfully
+        '422':
+          description: Validation error
+    get:
+      tags:
+        - Customers
+      summary: Retrieve all customers
+      responses:
+        '200':
+          description: List of customers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    phone:
+                      type: string
+                    email:
+                      type: string
+
+  /customers/{id}:
+    get:
+      tags:
+        - Customers
+      summary: Retrieve customer purchase history
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Customer purchase history
+        '404':
+          description: Customer not found
+
+  /products:
+    post:
+      tags:
+        - Products
+      summary: Add a new product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Laptop
+                category:
+                  type: string
+                  example: Electronics
+                price:
+                  type: number
+                  example: 1000
+                stock:
+                  type: integer
+                  example: 10
+              required:
+                - name
+                - category
+                - price
+                - stock
+      responses:
+        '201':
+          description: Product created
+        '422':
+          description: Validation error
+    get:
+      tags:
+        - Products
+      summary: Retrieve all products
+      responses:
+        '200':
+          description: List of products
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    category:
+                      type: string
+                    price:
+                      type: number
+                    stock:
+                      type: integer
+
+  /products/{id}:
+    get:
+      tags:
+        - Products
+      summary: Retrieve a specific product by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product details
+        '404':
+          description: Product not found
+    put:
+      tags:
+        - Products
+      summary: Update a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Laptop
+                category:
+                  type: string
+                  example: Electronics
+                price:
+                  type: number
+                  example: 1200
+                stock:
+                  type: integer
+                  example: 15
+      responses:
+        '200':
+          description: Product updated
+    delete:
+      tags:
+        - Products
+      summary: Delete a product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product deleted
+
+  /sales:
+    post:
+      tags:
+        - Sales
+      summary: Record a sale
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  example: 1
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      productId:
+                        type: integer
+                        example: 101
+                      quantity:
+                        type: integer
+                        example: 2
+                      pricePerUnit:
+                        type: number
+                        example: 500
+      responses:
+        '201':
+          description: Sale recorded successfully
+    get:
+      tags:
+        - Sales
+      summary: Retrieve sales records
+      parameters:
+        - name: startDate
+          in: query
+          schema:
+            type: string
+            format: date
+            example: 2024-01-01
+        - name: endDate
+          in: query
+          schema:
+            type: string
+            format: date
+            example: 2024-01-31
+      responses:
+        '200':
+          description: List of sales
+
+  /sales/{id}:
+    get:
+      tags:
+        - Sales
+      summary: Retrieve details of a specific sale
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Sale details
+        '404':
+          description: Sale not found
+
+  /reports/sales:
+    get:
+      tags:
+        - Reports
+      summary: Generate sales report
+      responses:
+        '200':
+          description: Sales report
+
+  /reports/inventory:
+    get:
+      tags:
+        - Reports
+      summary: Generate inventory report
+      responses:
+        '200':
+          description: Inventory report

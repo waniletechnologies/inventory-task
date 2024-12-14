@@ -1,0 +1,11 @@
+{
+  "rest-client.environmentVariables": {
+    "$shared": {},
+    "local env": {
+      "baseUrl": "http://localhost:5132",
+      "jwtToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjFkMzExZGRkNGNkMjg2NTg2MzkxMjYiLCJpYXQiOjE3MTMzNDEwNjksImV4cCI6MTcxNTkzMzA2OX0.DxpbB5AM3o5HlNrqfCLpOhhEMYZPusxVaX3yenP3Qms",
+      "jwtAdminToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZG1pbklkIjoiNjVkNDVjMzBkZTNkOTgwOTQyZDJiZjBmIiwiaWF0IjoxNzA4NDE2NDY1LCJleHAiOjE3MTEwMDg0NjV9.0X99uUuAPuEl2MPYPbubDNUA5Zkmp-_EtDsMN0gb7xc"
+      
+    }
+  }
+}
