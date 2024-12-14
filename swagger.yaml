@@ -5,7 +5,7 @@ info:
   description: API documentation for the Inventory and Sales Management System
 
 servers:
-  - url: http://localhost:5210
+  - url: https://inventory-task.wanile.com
 
 tags:
   - name: Customers
